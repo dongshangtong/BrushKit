@@ -1,0 +1,31 @@
+PODS:
+  - BrushKit (0.0.1)
+  - Chrysan (1.5.0)
+  - Comet (1.6.2)
+  - SnapKit (5.0.1)
+
+DEPENDENCIES:
+  - BrushKit (from `../`)
+  - Chrysan
+  - Comet
+  - SnapKit
+
+SPEC REPOS:
+  trunk:
+    - Chrysan
+    - Comet
+    - SnapKit
+
+EXTERNAL SOURCES:
+  BrushKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  BrushKit: c4dd68802ce99194815f39a9108094e85be39b76
+  Chrysan: 6bf6682adb2db76f7f5c103930a8c6670f54eebe
+  Comet: ec129472bd2b9683c13aefa939703cc3ef0efb14
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+
+PODFILE CHECKSUM: 41b45af08ec39ea5741b1e266fb5fbbbfb1b40c0
+
+COCOAPODS: 1.8.4

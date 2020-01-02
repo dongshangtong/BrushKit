@@ -6,6 +6,10 @@ target 'BrushSDKDome' do
   use_frameworks!
 
   # Pods for BrushSDKDome
+#   pod 'BrushKit'
   pod 'BrushKit', :path => '../'
+  pod 'SnapKit'
+  pod 'Comet'
+  pod 'Chrysan'
 
 end

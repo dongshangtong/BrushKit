@@ -1,0 +1,6 @@
+framework module BrushKit {
+  umbrella header "BrushKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

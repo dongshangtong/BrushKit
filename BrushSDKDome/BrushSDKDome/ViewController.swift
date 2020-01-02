@@ -6,8 +6,9 @@
 //  Copyright © 2020 dongshangtong. All rights reserved.
 //
 
-//import SnapKit
+import SnapKit
 import UIKit
+import BrushKit
 
 class ViewController: UIViewController {
     var canvas = MNScrollableCanvas(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
