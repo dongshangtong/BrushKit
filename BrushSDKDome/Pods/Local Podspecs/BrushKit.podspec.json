@@ -1,9 +1,9 @@
 {
   "name": "BrushKit",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "summary": "画笔BrushKit.",
   "description": "MetalKit 写的画笔",
-  "homepage": "http://EXAMPLE/BrushKit",
+  "homepage": "https://github.com/dongshangtong/BrushKit",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -14,17 +14,16 @@
   "platforms": {
     "ios": "10.0"
   },
+  "swift_versions": "5.0",
   "source": {
     "git": "https://github.com/dongshangtong/BrushKit.git",
-    "tag": "0.0.1"
+    "tag": "0.0.3"
   },
   "pod_target_xcconfig": {
     "SWIFT_VERSION": "5.0"
   },
-  "source_files": [
-    "BrushKit",
-    "**"
-  ],
+  "source_files": "BrushKit/Classes/**/*",
   "requires_arc": true,
-  "resources": "BrushKit/Textures/*.png"
+  "resources": "BrushKit/Classes/Textures/*.png",
+  "swift_version": "5.0"
 }

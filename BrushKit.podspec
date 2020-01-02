@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "BrushKit"
-  spec.version      = "0.0.3"
+  spec.version      = "0.0.4"
   spec.summary      = "画笔BrushKit."
   spec.description  = <<-DESC
                      MetalKit 写的画笔
@@ -15,6 +15,7 @@ Pod::Spec.new do |spec|
 
   spec.platform     = :ios
   spec.ios.deployment_target = "10.0"
+  spec.swift_version = '5.0'
 
 
   spec.source       = { :git => "https://github.com/dongshangtong/BrushKit.git", :tag => "#{spec.version}" }
