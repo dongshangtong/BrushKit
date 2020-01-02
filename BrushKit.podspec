@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "BrushKit"
-  spec.version      = "0.0.5"
+  spec.version      = "0.0.6"
   spec.summary      = "画笔BrushKit."
   spec.description  = <<-DESC
                      MetalKit 写的画笔
@@ -22,7 +22,7 @@ Pod::Spec.new do |spec|
   spec.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
   spec.source_files  = "BrushKit/Classes/**/*"
   spec.requires_arc = true
-  spec.resources = "Resources/*.png"
+  # spec.resources = "Resources/*.png"
   # spec.dependency "Comet", "~> 1.6.2"
 
 end
