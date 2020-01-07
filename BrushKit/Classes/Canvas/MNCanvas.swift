@@ -24,7 +24,7 @@ open class MNCanvas: MNMetalView {
     }
 
     // delegate & observers
-    
+
     open weak var originCanvasDelegate: MNOriginCanvasRenderingDelegate?
 
     open weak var renderingDelegate: MNRenderingDelegate?
@@ -145,7 +145,7 @@ open class MNCanvas: MNMetalView {
     open var paintingGesture: MNPaintingGestureRecognizer?
     open var tapGesture: UITapGestureRecognizer?
 
-    /// this will setup the canvas and gestures、default brushs
+    /// 这将设置画布和手势，默认刷
     open override func setup() {
         super.setup()
 
@@ -159,7 +159,7 @@ open class MNCanvas: MNMetalView {
         data = MNCanvasData()
     }
 
-    /// take a snapshot on current canvas and export an image
+    /// 获取当前画布上的快照并导出图像
     open func snapshot() -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, contentScaleFactor)
         drawHierarchy(in: bounds, afterScreenUpdates: true)
@@ -168,9 +168,9 @@ open class MNCanvas: MNMetalView {
         return image
     }
 
-    /// clear all things on the canvas
+    /// 清除画布上的所有东西
     ///
-    /// - Parameter display: redraw the canvas if this sets to true
+    /// - Parameter display: 如果此设置为true，则重新绘制画布
     open override func clear(display: Bool = true) {
         super.clear(display: display)
 
@@ -318,29 +318,27 @@ open class MNCanvas: MNMetalView {
     // MARK: - Touches
 
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        originTouchesBegan(touches, with: false)
+        guard let touch = touches.first else { return }
+        let pan = Pan(touch: touch, on: self)
+        originTouchesBegan(pan, with: false)
     }
 
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        originTouchesMoved(touches, with: false)
+        guard let touch = touches.first else { return }
+        let pan = Pan(touch: touch, on: self)
+        originTouchesMoved(pan, with: false)
     }
 
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-     
-        originTouchesEnded(touches, with: false)
+        guard let touch = touches.first else { return }
+        let pan = Pan(touch: touch, on: self)
+        originTouchesEnded(pan, with: false)
     }
 
     // 原点开始 --
-    // offline -- 是否是离线笔记
-    func originTouchesBegan(_ touches: Set<UITouch> ,with offline: Bool) {
-        guard let touch = touches.first else {
-            return
-        }
-
-        let pan = Pan(touch: touch, on: self)
+    // offline -- 是否是离线笔记 ; false 表示离线笔记
+    open func originTouchesBegan(_ pan: Pan, with offline: Bool) {
         lastRenderedPan = pan
-
         guard renderingDelegate?.canvas(self, shouldBeginLineAt: pan.point, force: pan.force) ?? true else {
             return
         }
@@ -348,44 +346,33 @@ open class MNCanvas: MNMetalView {
         bezierGenerator.begin(with: pan.point)
         pushPoint(pan.point, to: bezierGenerator, force: pan.force)
         actionObservers.canvas(self, didBeginLineAt: pan.point, force: pan.force)
-        
-       if (self.originCanvasDelegate != nil) {
-        self.originCanvasDelegate?.originCanvas(self, didBeginLineAt: pan.point, force: pan.force )
+
+        if (originCanvasDelegate != nil) && offline == false {
+            originCanvasDelegate?.originCanvas(self, didBeginLineAt: pan.point, force: pan.force)
         }
     }
 
     // 原点移动过程
-    // offline -- 是否是离线笔记
-    func originTouchesMoved(_ touches: Set<UITouch> , with offline: Bool) {
+    // offline -- 是否是离线笔记 ; false 表示离线笔记
+    open func originTouchesMoved(_ pan: Pan, with offline: Bool) {
         guard bezierGenerator.points.count > 0 else { return }
-        guard let touch = touches.first else {
-            return
-        }
-        let pan = Pan(touch: touch, on: self)
-        guard pan.point != lastRenderedPan?.point else {
-            return
-        }
-
+        guard pan.point != lastRenderedPan?.point else { return }
         pushPoint(pan.point, to: bezierGenerator, force: pan.force)
         actionObservers.canvas(self, didMoveLineTo: pan.point, force: pan.force)
-        if (self.originCanvasDelegate != nil) {
-            self.originCanvasDelegate?.originCanvas(self, didMoveLineTo: pan.point, force: pan.force)
+        if (originCanvasDelegate != nil) && offline == false {
+            originCanvasDelegate?.originCanvas(self, didMoveLineTo: pan.point, force: pan.force)
         }
     }
 
     // 原点结束
-    // offline -- 是否是离线笔记
-    func originTouchesEnded(_ touches: Set<UITouch>, with offline: Bool) {
+    // offline -- 是否是离线笔记 ; false 表示离线笔记
+    open func originTouchesEnded(_ pan: Pan, with offline: Bool) {
         defer {
             bezierGenerator.finish()
             lastRenderedPan = nil
             data.finishCurrentElement()
         }
 
-        guard let touch = touches.first else {
-            return
-        }
-        let pan = Pan(touch: touch, on: self)
         let count = bezierGenerator.points.count
 
         if count >= 3 {
@@ -399,9 +386,9 @@ open class MNCanvas: MNMetalView {
             render(lines: unfishedLines)
         }
         actionObservers.canvas(self, didFinishLineAt: pan.point, force: pan.force)
-        
-        if (self.originCanvasDelegate != nil) {
-            self.originCanvasDelegate?.originCanvas(self, didFinishLineAt: pan.point, force: pan.force)
+
+        if (originCanvasDelegate != nil) && offline == false {
+            originCanvasDelegate?.originCanvas(self, didFinishLineAt: pan.point, force: pan.force)
         }
     }
 }

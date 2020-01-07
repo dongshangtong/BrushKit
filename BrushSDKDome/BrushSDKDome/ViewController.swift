@@ -8,7 +8,7 @@
 
 import SnapKit
 import UIKit
-import BrushKit
+//import BrushKit
 
 class ViewController: UIViewController {
     var canvas = MNScrollableCanvas(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
@@ -23,7 +23,6 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(canvas)
         canvas.data.addObserver(self)
-        canvas.renderingDelegate = self
         canvas.originCanvasDelegate = self
         
         do {
@@ -89,34 +88,6 @@ extension ViewController: MNDataObserver {
 }
 
 
-extension   ViewController: MNRenderingDelegate {
-    
-    
-    func canvas(_ canvas: MNCanvas, shouldBeginLineAt point: CGPoint, force: CGFloat) -> Bool {
-        
-//        print("shouldBeginLineAt")
-//        print(point)
-        
-        return true
-    }
-    
-    
-    func canvas(_ canvas: MNCanvas, shouldRenderTapAt point: CGPoint) -> Bool {
-        
-//        print("shouldRenderTapAt")
-//        print(point)
-        
-        return true
-    }
-    
-    func canvas(_ canvas: MNCanvas, shouldRenderChartlet chartlet: MNChartlet) -> Bool {
-        
-        
-        return true
-    }
-    
-    
-}
 
 
 

@@ -100,7 +100,6 @@ extension MNActionObserverPool: MNActionObserver {
     }
     
     func canvas(_ canvas: MNCanvas, didBeginLineAt point: CGPoint, force: CGFloat) {
-         print(point)
         aliveObservers.forEach { $0.canvas(canvas, didBeginLineAt: point, force: force) }
     }
     

@@ -7,7 +7,7 @@ target 'BrushSDKDome' do
 
   # Pods for BrushSDKDome
 #   pod 'BrushKit'
-  pod 'BrushKit', :path => '../'
+#  pod 'BrushKit', :path => '../'
   pod 'SnapKit'
   pod 'Comet'
   pod 'Chrysan'
