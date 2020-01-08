@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "BrushKit"
-  spec.version      = "0.0.6"
+  spec.version      = "0.0.7"
   spec.summary      = "画笔BrushKit."
   spec.description  = <<-DESC
                      MetalKit 写的画笔
